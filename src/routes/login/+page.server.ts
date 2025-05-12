@@ -3,7 +3,9 @@ import {fail, redirect} from "@sveltejs/kit";
 import * as setCookieParser from 'set-cookie-parser';
 
 export const load = async ({locals}) => {
-
+    if(locals.user) {
+        redirect(302, '/');
+    }
 }
 
 export const actions = {

@@ -16,6 +16,21 @@ export const actions = {
         const repeatPassword = form.get('repeatPassword');
         const avatar = form.get('avatar');
 
+        if(
+            typeof email !== 'string' ||
+            typeof password !== 'string' ||
+            typeof username !== 'string' ||
+            typeof repeatPassword !== 'string' ||
+            typeof avatar !== 'string' ||
+            !email ||
+            !username ||
+            !avatar ||
+            !repeatPassword ||
+            !password
+        ) {
+            return fail(400, {invalid: true})
+        }
+
         const responseUser = await fetch(`http://localhost:3000/api/users?email=${email}`);
         const [user] = await responseUser.json();
         if(user){

@@ -585,6 +585,11 @@ svelte-check@^4.0.0:
     picocolors "^1.0.0"
     sade "^1.7.4"
 
+svelte-mui@^0.5.12:
+  version "0.5.12"
+  resolved "https://registry.yarnpkg.com/svelte-mui/-/svelte-mui-0.5.12.tgz#cd0a9e5bf6f91dc1f245d1a75343f60857afae38"
+  integrity sha512-38vG1Pza2hMWkpeCY5aIE+I9Hb5NtilxZPHCyRWXMnlQAdsNib+l3VZgvYnqLc0JUekJm127glKHmRbf95Og5w==
+
 svelte@^5.0.0:
   version "5.28.2"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-5.28.2.tgz#b0c4a6ad14e1562cc2255baac479fa16d75b9c0d"

@@ -14,8 +14,8 @@
 
     {#if !page.data.user}
         <ul>
-            <li><a href="/login">LOGIN</a></li>
-            <li><a href="/register">REGISTER</a></li>
+            <li><a href="/login">Sign In</a></li>
+            <li><a href="/register">Sign Up</a></li>
         </ul>
     {/if}
 
@@ -35,10 +35,12 @@
     nav{
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
-        padding: 2em;
+        padding: 1.5em;
         background-color: #474747;
+        height: 30px;
+        box-shadow: 0 5px 5px #ababab;
     }
     ul{
         display: flex;
@@ -53,5 +55,21 @@
     * {
         margin: 0;
         padding: 0;
+    }
+    button {
+        padding: .6em;
+        font-size: .9em;
+        border: 1px solid white;
+        background-color: #474747;
+        border-radius: 2px;
+        color: white;
+    }
+    button:hover {
+        background-color: #f13535;
+        border: none;
+    }
+    main {
+        padding: 1em;
+        height: calc(100vh - 110px);
     }
 </style>

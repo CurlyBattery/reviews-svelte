@@ -1,37 +1,37 @@
 <script lang="ts">
     import {enhance} from '$app/forms';
-    import { Snackbar, Button } from 'svelte-mui';
-
-    let { form } = $props();
+    import {Button, Snackbar} from "svelte-mui";
 
     let email = $state('');
-    let password = $state('');
-    let message = $derived(form?.credentials
-        ? 'You have entered the wrong credentials'
-        : 'All fields is required');
-    let visible = $derived(form?.invalid | form?.credentials);
+
+    let {form} = $props();
+
+    let message = $derived(form?.success
+        ? 'A letter has been sent to you'
+        : 'Error sending');
+    let visible = $derived(form?.success);
+    let color = $derived(form?.success
+        ? '#07a807'
+        : '#f11212')
+
 </script>
 
 <div class="container">
     <div class="form-container">
-        <h1>Login</h1>
-        <form action="?/login" method="POST" use:enhance>
+        <h1>Forgot Password</h1>
+        <form action="?/forgotPassword" method="POST" use:enhance>
             <label>
                 Email
                 <input type="email" name="email" bind:value={email}>
             </label>
-            <label>
-                Password
-                <input type="password" name="password" bind:value={password}>
-            </label>
 
-            <button type="submit">Log in</button>
-            <a href="/forgot-password">Забыли пароль?</a>
+            <button type="submit">Получить письмо</button>
+            <span>* перейдите по ссылке в письме</span>
         </form>
     </div>
 </div>
 
-<Snackbar bind:visible bg="#f44336">
+<Snackbar bind:visible bg={color}>
     {message}
     <span slot="action">
         <Button color="#fff" on:click={() => (visible = false)}>Close</Button>
@@ -94,9 +94,7 @@
     button:active {
         box-shadow: inset 5px 5px 5px 5px rgba(136, 136, 136, 0.67);
     }
-    a {
+    span {
         color: white;
-        text-decoration: none;
     }
 </style>
-
