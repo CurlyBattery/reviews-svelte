@@ -24,37 +24,34 @@
     let succesRegisterMessage = 'Success registration. Please log in'
 </script>
 
-<div class="container">
-    <div class="form-container">
-        <h1>Register</h1>
+<div class="main-container">
+    <div class="register-box">
+        <h2>Register</h2>
         <form action="?/register" method="POST" use:enhance>
-            <label>
-                Email
-                <input type="email" name="email" bind:value={email}>
-            </label>
-            <label>
-                Username
-                <input type="text" name="username" bind:value={username}>
-            </label>
-            <label>
-                Password
-                <input type="password" name="password" bind:value={password}>
-            </label>
-            <label>
-                Repeat Password
-                <input type="password" name="repeatPassword" bind:value={repeatPassword}>
-            </label>
-            <label>
-                Avatar
-                <input type="text" name="avatar" bind:value={avatar}>
-            </label>
+            <div class="user-box">
+                <input  name="" bind:value={email} required="" type="text">
+                <label>Email</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="" bind:value={username} required="">
+                <label>Username</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="" bind:value={password} required="">
+                <label>Password</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="" bind:value={repeatPassword} required="">
+                <label>Repeat Password</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="" bind:value={avatar} required="">
+                <label>Avatar</label>
+            </div>
 
             <button type="submit" on:click={() => succesRegisterVisible = true}>Register</button>
         </form>
-
-
     </div>
-
 </div>
 
 
@@ -73,60 +70,101 @@
 </Snackbar>
 
 <style>
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    .main-container {
         height: 100%;
     }
-    .form-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 2em;
-        background-color: rgba(128, 128, 128, 0.7);
-        border-radius: 15px;
-        box-shadow: 5px 5px 5px #ababab;
-    }
-    h1 {
-        color: white;
-        font-size: 20px;
-        font-weight: bold;
+
+    .register-box {
+        position: absolute;
+        width: 400px;
+        padding: 40px;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0,.5);
+        box-sizing: border-box;
+        left: 50%;
+        top: 50%;
+        box-shadow: 0 15px 25px rgba(0,0,0,.6);
+        border-radius: 10px;
     }
 
-    form {
-        display: flex;
-        width: 300px;
-        flex-direction: column;
-        row-gap: 20px;
+    h2 {
+        margin: 0 0 30px;
+        padding: 0;
+        color: #fff;
+        text-align: center;
     }
-    label {
-        display: flex;
-        flex-direction: column;
-        font-size: 17px;
+
+    .user-box {
+        position: relative;
     }
-    input  {
-        height: 20px;
-        border-radius: 10px;
-        padding: 4px;
-    }
-    input:focus  {
-        border: 1px solid #e1b43b;
-    }
-    button {
-        height: 30px;
-        border-radius: 10px;
-        margin-top: 1.5em;
-        background-color: rgba(154, 209, 229, 0.78);
+
+    input {
+        width: 100%;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 30px;
         border: none;
-        color: white;
+        border-bottom: 1px solid #fff;
+        outline: none;
+        background: transparent;
     }
+
+    label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #fff;
+        pointer-events: none;
+        transition: .5s;
+    }
+
+
+    button {
+        border: none;
+        padding: 10px 15px;
+        border-radius: 10px;
+        transition: all 0.2s;
+    }
+
     button:hover {
-        background-color: rgba(154, 209, 229, 0.63);
+        cursor: pointer;
     }
+
     button:active {
-        box-shadow: inset 5px 5px 5px 5px rgba(136, 136, 136, 0.67);
+        transform: scale(0.95);
+    }
+
+
+    .user-box input {
+        width: 100%;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 30px;
+        border: none;
+        border-bottom: 1px solid #fff;
+        outline: none;
+        background: transparent;
+    }
+    .user-box label {
+        position: absolute;
+        top:0;
+        left: 0;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #fff;
+        pointer-events: none;
+        transition: .5s;
+    }
+
+    .user-box input:focus ~ label,
+    .user-box input:valid ~ label {
+        top: -20px;
+        left: 0;
+        color: #03e9f4;
+        font-size: 12px;
     }
 </style>

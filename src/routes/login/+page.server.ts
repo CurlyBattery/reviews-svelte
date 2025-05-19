@@ -24,7 +24,7 @@ export const actions = {
         }
 
         const responseUser = await fetch(`http://localhost:3000/api/users?email=${email}`);
-        const [user] = await responseUser.json();
+        const user = await responseUser.json();
         if(!user){
             return fail(400, {credentials: true})
         }

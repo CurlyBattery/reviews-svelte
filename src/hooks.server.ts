@@ -6,7 +6,14 @@ export const handle: Handle = async ({event, resolve}) => {
         return resolve(event);
     }
 
-    const authenticateUser = await fetch(`http://localhost:3000/api/authentication`);
+    const authenticateUser = await fetch(`http://localhost:3000/api/authentication`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            "Content-Type": "application/json",
+            'Cookie': event.cookies.get('Authentication') ?? '',
+        },
+    });
     const user = await authenticateUser.json();
     if(user) {
         event.locals.user = {

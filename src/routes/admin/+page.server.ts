@@ -1,7 +1,8 @@
 import {redirect} from "@sveltejs/kit";
 
 export const load = async ({locals}) => {
-    if(!locals.user) {
-        redirect(302, '/')
+    console.log(locals)
+    if(!(locals.user.role === 'Admin')) {
+        redirect(302, '/reviews')
     }
 }

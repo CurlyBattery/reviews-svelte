@@ -3,7 +3,7 @@ import {fail, redirect} from "@sveltejs/kit";
 
 export const load = async ({locals}) => {
     if(locals.user) {
-        redirect(302, '/');
+        redirect(302, '/reviews');
     }
 }
 
@@ -32,7 +32,7 @@ export const actions = {
         }
 
         const responseUser = await fetch(`http://localhost:3000/api/users?email=${email}`);
-        const [user] = await responseUser.json();
+        const user = await responseUser.json();
         if(user){
             return fail(400, {user: true})
         }

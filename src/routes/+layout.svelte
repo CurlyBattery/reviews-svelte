@@ -2,7 +2,6 @@
     import { page } from '$app/state';
     import { enhance } from '$app/forms'
 
-    console.log(page.data);
     let {children} = $props();
 </script>
 
@@ -20,6 +19,11 @@
     {/if}
 
     {#if page.data.user}
+        <ul>
+            {#if page.data.user.role === 'Admin'}
+                <li><a href="/admin">Admin</a></li>
+            {/if}
+        </ul>
         <form action="/logout" method="POST" use:enhance>
             <button type="submit">Log out</button>
         </form>
@@ -41,6 +45,7 @@
         background-color: #474747;
         height: 30px;
         box-shadow: 0 5px 5px #ababab;
+        column-gap: 10px;
     }
     ul{
         display: flex;
