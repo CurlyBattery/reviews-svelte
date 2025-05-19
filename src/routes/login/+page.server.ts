@@ -13,7 +13,7 @@ export const actions = {
         const form = await request.formData();
         const email = form.get('email');
         const password = form.get('password');
-
+        console.log(email)
         if(
             typeof email !== 'string' ||
             typeof password !== 'string' ||
@@ -26,6 +26,7 @@ export const actions = {
         const responseUser = await fetch(`http://localhost:3000/api/users?email=${email}`);
         const user = await responseUser.json();
         if(!user){
+            console.log(124)
             return fail(400, {credentials: true})
         }
 

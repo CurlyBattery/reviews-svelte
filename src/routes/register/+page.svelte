@@ -29,23 +29,23 @@
         <h2>Register</h2>
         <form action="?/register" method="POST" use:enhance>
             <div class="user-box">
-                <input  name="" bind:value={email} required="" type="text">
+                <input  name="email" bind:value={email} required="" type="text">
                 <label>Email</label>
             </div>
             <div class="user-box">
-                <input type="text" name="" bind:value={username} required="">
+                <input type="text" name="username" bind:value={username} required="">
                 <label>Username</label>
             </div>
             <div class="user-box">
-                <input type="password" name="" bind:value={password} required="">
+                <input type="password" name="password" bind:value={password} required="">
                 <label>Password</label>
             </div>
             <div class="user-box">
-                <input type="password" name="" bind:value={repeatPassword} required="">
+                <input type="password" name="repeatPassword" bind:value={repeatPassword} required="">
                 <label>Repeat Password</label>
             </div>
             <div class="user-box">
-                <input type="text" name="" bind:value={avatar} required="">
+                <input type="text" name="avatar" bind:value={avatar} required="">
                 <label>Avatar</label>
             </div>
 
@@ -97,31 +97,6 @@
     .user-box {
         position: relative;
     }
-
-    input {
-        width: 100%;
-        padding: 10px 0;
-        font-size: 16px;
-        color: #fff;
-        margin-bottom: 30px;
-        border: none;
-        border-bottom: 1px solid #fff;
-        outline: none;
-        background: transparent;
-    }
-
-    label {
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding: 10px 0;
-        font-size: 16px;
-        color: #fff;
-        pointer-events: none;
-        transition: .5s;
-    }
-
-
     button {
         border: none;
         padding: 10px 15px;
