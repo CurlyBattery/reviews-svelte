@@ -2,7 +2,6 @@ import {fail, redirect} from "@sveltejs/kit";
 import type {Actions} from "../../../../../.svelte-kit/types/src/routes/register/$types";
 
 export const load = async ({ locals}) => {
-    console.log(locals)
     if (!locals.user) {
         redirect(303, '/')
     }
@@ -15,7 +14,6 @@ export const actions = {
         const category = form.get('selectedCategory');
         const text = form.get('text');
         const preview = form.get('preview');
-        console.log(title)
         if(
             typeof title !== 'string' ||
             typeof category !== 'string' ||

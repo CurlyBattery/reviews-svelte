@@ -33,7 +33,7 @@ export const actions = {
 
         const responseUser = await fetch(`http://localhost:3000/api/users?email=${email}`);
         const user = await responseUser.json();
-        if(user){
+        if(user.length > 0){
             return fail(400, {user: true})
         }
 
@@ -52,7 +52,6 @@ export const actions = {
             })
         });
         const res = await response.json();
-        console.log(res);
 
         if(!res.error || !res.statusCode) {
             redirect(303, 'login');

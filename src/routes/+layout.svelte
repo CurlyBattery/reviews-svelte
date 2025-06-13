@@ -2,6 +2,7 @@
     import { page } from '$app/state';
     import { enhance } from '$app/forms'
 
+
     let {children} = $props();
 </script>
 
@@ -10,11 +11,10 @@
 </svelte:head>
 
 <nav>
-
     {#if !page.data.user}
         <ul>
+            <li><a href="/register">Start Now</a></li>
             <li><a href="/login">Sign In</a></li>
-            <li><a href="/register">Sign Up</a></li>
         </ul>
     {/if}
 
@@ -37,25 +37,39 @@
 
 <style>
     nav{
+        font-family: 'Trebuchet MS', sans-serif;
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
         align-items: center;
         padding: 1.5em;
-        background-color: #474747;
+        background-color: #2e4d64;
         height: 30px;
         box-shadow: 0 5px 5px #ababab;
         column-gap: 10px;
+        font-size: 1em;
     }
     ul{
         display: flex;
         flex-direction: row;
         column-gap: 20px;
+        align-items: center;
     }
     li, a {
-        list-style-type: none;
-        color: white;
-        text-decoration: none;
+         list-style-type: none;
+         color: #b9b9b9;
+         text-decoration: none;
+     }
+    a:hover {
+        color: #ffffff;
+    }
+    li:first-child a{
+        display: inline-block;
+        color: #ffffff;
+        background: #363636;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
     }
     * {
         margin: 0;
@@ -74,7 +88,6 @@
         border: none;
     }
     main {
-        padding: 1em;
-        height: calc(100vh - 110px);
+        height: calc(100vh - 78px);
     }
 </style>

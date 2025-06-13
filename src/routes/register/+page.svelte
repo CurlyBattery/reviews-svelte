@@ -2,7 +2,6 @@
     import {enhance} from '$app/forms';
     import { Snackbar, Button } from 'svelte-mui';
 
-
     let {form} = $props();
 
     let email = $state('');
@@ -18,6 +17,8 @@
                 ? 'Password not match'
                 : 'Password too week'
     );
+    console.log(message)
+
     let visible = $derived(form?.invalid | form?.user | (repeatPassword !== "" && repeatPassword !== password) |form?.password);
 
     let succesRegisterVisible = false;

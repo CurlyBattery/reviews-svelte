@@ -14,12 +14,14 @@ export const handle: Handle = async ({event, resolve}) => {
             'Cookie': event.cookies.get('Authentication') ?? '',
         },
     });
-    const user = await authenticateUser.json();
-    if(user) {
+    let user = await authenticateUser.json();
+    if(user?.id) {
         event.locals.user = {
             name: user.username,
             role: user.role
         }
+    } else {
+        user = undefined;
     }
 
     return resolve(event);

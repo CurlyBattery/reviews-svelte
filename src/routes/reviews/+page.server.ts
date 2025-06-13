@@ -1,7 +1,6 @@
 import {redirect} from "@sveltejs/kit";
 
 export const load = async ({cookies, locals}) => {
-    console.log(locals)
     if(!locals.user) {
         redirect(303, '/')
     }
@@ -26,5 +25,5 @@ export const load = async ({cookies, locals}) => {
 }
 
 export const actions = {
-    
+
 }
