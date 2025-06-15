@@ -101,8 +101,8 @@
         flex-direction: column;
         justify-content: center;
         width: 100%;
-        background: #6E62D6;
-        background: radial-gradient(circle, rgba(110, 98, 214, 0.72) 0%, rgba(255, 255, 255, 1) 42%);
+        background: #581535FF;
+        background: radial-gradient(circle, rgba(88, 21, 53, 0.64) 0%, rgba(255, 255, 255, 1) 35%);
     }
     .register-box {
         width: 50%;
@@ -146,7 +146,7 @@
     }
     .register_option .option a:hover{
         background: #ededf5;
-        border-color: #6e62d6;
+        border-color: #ce327c;
     }
     .register_option .option a img{
         max-width: 25px;
@@ -197,7 +197,7 @@
         transition: 0.2s ease;
     }
     .user-box input:focus {
-        border: 1px solid #6e62d6;
+        border: 1px solid #ce327c;
     }
     .user-box .password_title{
         display: flex;
@@ -209,7 +209,7 @@
     }
     a {
         text-decoration: none;
-        color: #6e62d6;
+        color: #581535FF;
         font-weight: 500;
     }
     a:hover {
@@ -221,7 +221,7 @@
         border-radius: 5px;
         border: none;
         outline: none;
-        background: #6e62d6;
+        background: #581535FF;
         color: #ffffff;
         font-size: 18px;
         font-weight: 500;
@@ -231,9 +231,7 @@
     }
     button:hover {
         background: #ffffff;
-        border: 1px solid #6e62d6;
-        color: #6e62d6;
+        border: 1px solid #581535FF;
+        color: #581535FF;
     }
-    p
-
 </style>
