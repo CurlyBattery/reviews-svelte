@@ -72,75 +72,13 @@
 
 <style>
     .main-container {
-        height: 100%;
+        padding: 2em;
     }
-
     .register-box {
-        position: absolute;
-        width: 400px;
-        padding: 40px;
-        transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0,.5);
-        box-sizing: border-box;
-        left: 50%;
-        top: 50%;
-        box-shadow: 0 15px 25px rgba(0,0,0,.6);
-        border-radius: 10px;
-    }
-
-    h2 {
-        margin: 0 0 30px;
-        padding: 0;
-        color: #fff;
-        text-align: center;
-    }
-
-    .user-box {
-        position: relative;
-    }
-    button {
-        border: none;
-        padding: 10px 15px;
-        border-radius: 10px;
-        transition: all 0.2s;
-    }
-
-    button:hover {
-        cursor: pointer;
-    }
-
-    button:active {
-        transform: scale(0.95);
-    }
-
-
-    .user-box input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         width: 100%;
-        padding: 10px 0;
-        font-size: 16px;
-        color: #fff;
-        margin-bottom: 30px;
-        border: none;
-        border-bottom: 1px solid #fff;
-        outline: none;
-        background: transparent;
-    }
-    .user-box label {
-        position: absolute;
-        top:0;
-        left: 0;
-        padding: 10px 0;
-        font-size: 16px;
-        color: #fff;
-        pointer-events: none;
-        transition: .5s;
-    }
-
-    .user-box input:focus ~ label,
-    .user-box input:valid ~ label {
-        top: -20px;
-        left: 0;
-        color: #03e9f4;
-        font-size: 12px;
+        height: 100%;
     }
 </style>

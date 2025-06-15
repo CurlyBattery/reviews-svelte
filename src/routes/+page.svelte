@@ -16,12 +16,16 @@
         align-items: center;
         text-align: center;
         height: 100%;
-        background: #2E4D64FF;
-        background: radial-gradient(circle, rgba(46, 77, 100, 1) 41%, rgba(136, 136, 136, 1) 100%);
+        background: #193B68;
+        background: linear-gradient(90deg, rgba(25, 59, 104, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(88, 21, 53, 1) 100%);
     }
     p {
-
         color: white;
-        padding: 3.5em;
+        background: rgba(0, 0, 0, 0.38);
+        margin: 1.5em;
+        padding: .5em;
+        border-radius: 20px;
+        box-shadow: 5px 5px 10px #581535FF,
+        -5px -5px 10px #193B68FF;
     }
 </style>
