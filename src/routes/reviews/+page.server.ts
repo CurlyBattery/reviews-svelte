@@ -4,7 +4,7 @@ export const load = async ({cookies, locals}) => {
     if(!locals.user) {
         redirect(303, '/')
     }
-    const response = await fetch('http://localhost:3000/api/reviews?offset=0&limit=10', {
+    const responseReviews = await fetch('http://localhost:3000/api/reviews?offset=0&limit=10', {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -12,15 +12,11 @@ export const load = async ({cookies, locals}) => {
             'Cookie': cookies.get('Authentication') ?? '',
         },
     });
-    const res = await response.json();
-    console.log(res)
+    const {data} = await responseReviews.json();
+    console.log(data)
+
     return {
-        reviews: [
-            {
-                id: 1,
-                name: '123'
-            }
-        ]
+        reviews: data
     }
 }
 

@@ -9,8 +9,9 @@
 <div>
     {#each data?.myReviews as review}
         <div>
-            {review.id}
+            {review.title}
         </div>
     {/each}
     <a href="/reviews/my/create">Create new +</a>
+    <a href="/reviews">all</a>
 </div>

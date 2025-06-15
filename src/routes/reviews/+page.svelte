@@ -8,7 +8,7 @@
 <div>
     {#each data?.reviews as review}
         <div>
-            {review.id}
+            {review.title}
         </div>
     {/each}
     <a href="/reviews/my">my</a>

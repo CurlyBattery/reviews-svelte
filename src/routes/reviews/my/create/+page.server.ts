@@ -8,12 +8,16 @@ export const load = async ({ locals}) => {
 }
 
 export const actions = {
-    create: async ({request}) => {
+    create: async ({request, cookies}) => {
         const form = await request.formData();
         const title = form.get('title');
         const category = form.get('selectedCategory');
         const text = form.get('text');
         const preview = form.get('preview');
+        console.log(title)
+        console.log(category)
+        console.log(text)
+        console.log(preview)
         if(
             typeof title !== 'string' ||
             typeof category !== 'string' ||
@@ -24,7 +28,31 @@ export const actions = {
             !text ||
             !preview
         ) {
-            return fail(400)
+            return fail(400, {invalid: true})
+        }
+
+
+        const responseReview = await fetch(`http://localhost:3000/api/reviews`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json",
+                'Cookie': cookies.get('Authentication') ?? '',
+            },
+            body: JSON.stringify({
+                title,
+                category: category,
+                text,
+                preview,
+            })
+        });
+        const res = await responseReview.json();
+
+        if(!res.error || !res.statusCode) {
+            redirect(303, '/reviews/my');
+        }
+        else {
+            return fail(res.statusCode, {badRequest: true})
         }
     }
 } satisfies Actions;
