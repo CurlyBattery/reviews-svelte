@@ -27,27 +27,50 @@
 
 <div class="main-container">
     <div class="register-box">
-        <h2>Register</h2>
+        <h2>Get Started</h2>
         <form action="?/register" method="POST" use:enhance>
+            <div class="register_option">
+                <div class="option">
+                    <a href="#">
+                        <img alt="Google" src={'https://img.icons8.com/?size=100&id=JvOSspDsPpwP&format=png&color=000000'} />
+                        <span>Google</span>
+                    </a>
+                </div>
+                <div class="option">
+                    <a href="#">
+                        <img alt="Apple" src={'https://img.icons8.com/?size=100&id=30840&format=png&color=000000'} />
+                        <span>Apple</span>
+                    </a>
+                </div>
+            </div>
+
+            <p class="separator">
+                <span>or</span>
+            </p>
+
             <div class="user-box">
-                <input  name="email" bind:value={email} required="" type="text">
                 <label>Email</label>
+                <input  name="email" bind:value={email} required="" type="text">
             </div>
             <div class="user-box">
-                <input type="text" name="username" bind:value={username} required="">
                 <label>Username</label>
+                <input type="text" name="username" bind:value={username} required="">
             </div>
             <div class="user-box">
+                <div class="password_title">
+                    <label>Password</label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+
                 <input type="password" name="password" bind:value={password} required="">
-                <label>Password</label>
             </div>
             <div class="user-box">
-                <input type="password" name="repeatPassword" bind:value={repeatPassword} required="">
                 <label>Repeat Password</label>
+                <input type="password" name="repeatPassword" bind:value={repeatPassword} required="">
             </div>
             <div class="user-box">
-                <input type="text" name="avatar" bind:value={avatar} required="">
                 <label>Avatar</label>
+                <input type="text" name="avatar" bind:value={avatar} required="">
             </div>
 
             <button type="submit" on:click={() => succesRegisterVisible = true}>Register</button>
@@ -73,12 +96,144 @@
 <style>
     .main-container {
         padding: 2em;
-    }
-    .register-box {
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         width: 100%;
-        height: 100%;
+        background: #6E62D6;
+        background: radial-gradient(circle, rgba(110, 98, 214, 0.72) 0%, rgba(255, 255, 255, 1) 42%);
     }
+    .register-box {
+        width: 50%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        row-gap: 20px;
+        max-width: 400px;
+        border: 1px solid rgba(71, 71, 71, 0.3);
+        padding: 2em;
+        border-radius: 5px;
+    }
+    h2 {
+        font-size: 2.5em;
+    }
+    .register_option {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .register_option .option {
+        width: calc(100% / 2 - 12px);
+    }
+    .register_option .option a{
+        height: 34px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        background: #f3f3f5;
+        border: 1px solid #dadaf2;
+        border-radius: 5px;
+        margin: 24px 0 14px 0;
+        text-decoration: none;
+        color: #171645;
+        font-weight: 500;
+        transition: 0.2s ease;
+        padding: .5em;
+    }
+    .register_option .option a:hover{
+        background: #ededf5;
+        border-color: #6e62d6;
+    }
+    .register_option .option a img{
+        max-width: 25px;
+    }
+    p {
+        text-align: center;
+        font-weight: 500;
+    }
+    .separator {
+        position: relative;
+        margin-bottom: 24px;
+    }
+    .separator span {
+        background: #ffffff;
+        z-index: 1;
+        padding: 0 10px;
+        position: relative;
+    }
+    .separator::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        left: 0;
+        height: 1px;
+        background: #c2c2c2;
+        display: block;
+    }
+    form {
+        font-size: 1em;
+        display: flex;
+        flex-direction: column;
+    }
+    .user-box label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+    .user-box input {
+        width: 100%;
+        height: 35px;
+        border: 1px solid #474747;
+        border-radius: 5px;
+        outline: none;
+        font-size: 17px;
+        padding: 0 10px;
+        margin-bottom: 20px;
+        transition: 0.2s ease;
+    }
+    .user-box input:focus {
+        border: 1px solid #6e62d6;
+    }
+    .user-box .password_title{
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+    }
+    .user-box {
+        position: relative;
+    }
+    a {
+        text-decoration: none;
+        color: #6e62d6;
+        font-weight: 500;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    button {
+        width: 100%;
+        height: 34px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        background: #6e62d6;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-bottom: 28px;
+        transition: 0.3s ease;
+    }
+    button:hover {
+        background: #ffffff;
+        border: 1px solid #6e62d6;
+        color: #6e62d6;
+    }
+    p
+
 </style>

@@ -41,12 +41,6 @@
 
 
 <style>
-    :root {
-        --height-navbar: 30px;
-        --padding-navbar: 1.5em;
-        --padding-sign-up-button: 10px;
-        --font-size-sign-up-button: .9em;
-    }
 
     .box {
         display: flex;
@@ -61,7 +55,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        padding: var(--padding-navbar);
+        padding: 30px;
         background-color: #2e4d64;
         height: var(--height-navbar);
         box-shadow: 0 5px 5px #ababab;

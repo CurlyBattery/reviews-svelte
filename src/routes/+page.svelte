@@ -9,7 +9,7 @@
 <style>
     div {
         font-family: 'Trebuchet MS', sans-serif;
-        font-size: 3.5em;
+        font-size: 1.5em;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -23,8 +23,8 @@
         color: white;
         background: rgba(0, 0, 0, 0.38);
         margin: 1.5em;
-        padding: .5em;
-        border-radius: 20px;
+        padding: 1em;
+        border-radius: 45px;
         box-shadow: 5px 5px 10px #581535FF,
         -5px -5px 10px #193B68FF;
     }
