@@ -59,10 +59,17 @@
             <div class="user-box">
                 <div class="password_title">
                     <label>Password</label>
-                    <a href="#">Forgot Password?</a>
                 </div>
 
                 <input type="password" name="password" bind:value={password} required="">
+                <div class="rules_password">
+                    <h3>Пароль должен содеражть</h3>
+                    <ul>
+                        <li>• Заглавные буквы(en)</li>
+                        <li>• Строчные буквы(en)</li>
+                        <li>• Цифры</li>
+                    </ul>
+                </div>
             </div>
             <div class="user-box">
                 <label>Repeat Password</label>
@@ -75,6 +82,9 @@
 
             <button type="submit" on:click={() => succesRegisterVisible = true}>Register</button>
         </form>
+    </div>
+    <div class="already_account">
+        Already have an account? <a href="/login">Sign In</a>
     </div>
 </div>
 
@@ -115,6 +125,7 @@
         border: 1px solid rgba(71, 71, 71, 0.3);
         padding: 2em;
         border-radius: 5px;
+        margin-bottom: 8px;
     }
     h2 {
         font-size: 2.5em;
@@ -204,6 +215,21 @@
         justify-content: space-between;
         text-align: center;
     }
+    .rules_password {
+        display: flex;
+        flex-direction: column;
+    }
+    .rules_password h3 {
+        font-size: 1em;
+        font-weight: 500;
+    }
+    .rules_password ul {
+        color: grey;
+        font-size: .9em;
+        list-style: none;
+        margin-bottom: 20px;
+    }
+
     .user-box {
         position: relative;
     }

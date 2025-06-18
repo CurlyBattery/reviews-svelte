@@ -2,9 +2,9 @@ import {redirect} from "@sveltejs/kit";
 
 export const load = async ({cookies, locals}) => {
     if(!locals.user) {
-        redirect(303, '/')
+        redirect(303, '/login')
     }
-    const responseReviews = await fetch('http://localhost:3000/api/reviews?offset=0&limit=10', {
+    const responseReviews = await fetch('http://localhost:3000/api/reviews', {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -12,11 +12,11 @@ export const load = async ({cookies, locals}) => {
             'Cookie': cookies.get('Authentication') ?? '',
         },
     });
-    const {data} = await responseReviews.json();
-    console.log(data)
+    const response = await responseReviews.json();
+    console.log(response)
 
     return {
-        reviews: data
+        reviews: response
     }
 }
 

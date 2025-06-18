@@ -1,6 +1,7 @@
 <script lang="ts">
     import {enhance} from '$app/forms';
     import {Button, Snackbar} from "svelte-mui";
+    import logo from "$lib/assets/favicon.png";
 
     let email = $state('');
 
@@ -16,14 +17,15 @@
 
 </script>
 
-<div class="container">
-    <div class="form-container">
-        <h1>Forgot Password</h1>
+<div class="main-container">
+    <div class="forgot-box">
+        <p><img alt="The project logo" src={logo} /></p>
+        <h2>Forgot Password</h2>
         <form action="?/forgotPassword" method="POST" use:enhance>
-            <label>
-                Email
+            <div class="user-box">
+                <label>Email</label>
                 <input type="email" name="email" bind:value={email}>
-            </label>
+            </div>
 
             <button type="submit">Получить письмо</button>
             <span>* перейдите по ссылке в письме</span>
@@ -39,62 +41,84 @@
 </Snackbar>
 
 <style>
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-    }
-    .form-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    .main-container {
         padding: 2em;
-        background-color: rgba(128, 128, 128, 0.7);
-        border-radius: 15px;
-        box-shadow: 5px 5px 5px #ababab;
-    }
-    h1 {
-        color: white;
-        font-size: 20px;
-        font-weight: bold;
-    }
-    form {
+        height: 100%;
         display: flex;
-        width: 300px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background: #ffffff;
+    }
+    .forgot-box {
+        width: 50%;
+        height: auto;
+        display: flex;
         flex-direction: column;
         row-gap: 20px;
+        max-width: 400px;
+        border: none;
+        padding: 2em;
     }
-    label {
+    h2 {
+        font-size: 2.5em;
+    }
+    form {
+        font-size: 1em;
         display: flex;
         flex-direction: column;
+    }
+    .user-box  label{
+        display: block;
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+    .user-box input {
+        width: 100%;
+        height: 35px;
+        border: 1px solid #474747;
+        border-radius: 5px;
+        outline: none;
         font-size: 17px;
+        padding: 0 10px;
+        margin-bottom: 20px;
+        transition: 0.2s ease;
     }
-    input  {
-        height: 20px;
-        border-radius: 10px;
-        padding: 4px;
+    .user-box input:focus {
+        border: 1px solid #ce327c;
     }
-    input:focus  {
-        border: 1px solid #e1b43b;
+    .user-box {
+        position: relative;
     }
     button {
-        height: 30px;
-        border-radius: 10px;
-        margin-top: 1em;
-        background-color: rgba(154, 209, 229, 0.78);
+        width: 100%;
+        height: 34px;
+        border-radius: 5px;
         border: none;
-        color: white;
+        outline: none;
+        background: #581535FF;
+        color: #ffffff;
+        font-size: 17px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-bottom: 8px;
+        transition: 0.3s ease;
     }
     button:hover {
-        background-color: rgba(154, 209, 229, 0.63);
-    }
-    button:active {
-        box-shadow: inset 5px 5px 5px 5px rgba(136, 136, 136, 0.67);
+        background: #ffffff;
+        border: 1px solid #581535FF;
+        color: #581535FF;
     }
     span {
-        color: white;
+        color: #474747;
+        font-size: 16px;
+    }
+    img {
+        width: 150px;
+        height: auto;
+    }
+    p {
+        text-align: center;
     }
 </style>

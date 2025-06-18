@@ -16,7 +16,7 @@
         <a href="/"><img alt="The project logo" src={logo} /></a>
         {#if !page.data.user}
             <ul>
-                <li><a href="/register">Start Now</a></li>
+                <li><a href="/register" class="register">Start Now</a></li>
                 <li><a href="/login">Sign In</a></li>
             </ul>
         {/if}
@@ -25,6 +25,8 @@
             <ul>
                 {#if page.data.user.role === 'Admin'}
                     <li><a href="/admin">Admin</a></li>
+                {:else}
+                    <li><a href="/reviews/my">My Reviews</a></li>
                 {/if}
             </ul>
             <form action="/logout" method="POST" use:enhance>
@@ -77,7 +79,7 @@
     a:hover {
         color: #ffffff;
     }
-    li:first-child a{
+    li:first-child .register{
         display: inline-block;
         color: #b9b9b9;
         background: #363636;
@@ -85,7 +87,7 @@
         border: 1px solid white;
         border-radius: 5px;
     }
-    li:first-child a:hover{
+    li:first-child .register:hover{
         background-color: #581535FF;
         color: white;
         border: 1px solid #474747;

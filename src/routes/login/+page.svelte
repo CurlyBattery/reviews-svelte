@@ -42,7 +42,7 @@
             <div class="user-box">
                 <div class="password_title">
                     <label>Password</label>
-                    <a href="#">Forgot Password?</a>
+                    <a href="/forgot-password">Forgot Password?</a>
                 </div>
 
                 <input type="password" name="password" bind:value={password} required="">
@@ -50,6 +50,9 @@
 
             <button type="submit">Log in</button>
         </form>
+    </div>
+    <div class="dont_account">
+        Don't have an account yet? <a href="/register">Sign Up</a>
     </div>
 </div>
 
@@ -82,6 +85,7 @@
         border: 1px solid rgba(71, 71, 71, 0.3);
         padding: 2em;
         border-radius: 5px;
+        margin-bottom: 8px;
     }
     h2  {
         font-size: 2.5em;
