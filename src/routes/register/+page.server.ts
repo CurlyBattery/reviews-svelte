@@ -14,17 +14,14 @@ export const actions = {
         const username = form.get('username');
         const password = form.get('password');
         const repeatPassword = form.get('repeatPassword');
-        const avatar = form.get('avatar');
-
+        // const avatarImage = form.get('avatarImage');
         if(
             typeof email !== 'string' ||
             typeof password !== 'string' ||
             typeof username !== 'string' ||
             typeof repeatPassword !== 'string' ||
-            typeof avatar !== 'string' ||
             !email ||
             !username ||
-            !avatar ||
             !repeatPassword ||
             !password
         ) {
@@ -48,12 +45,26 @@ export const actions = {
                 username,
                 password,
                 repeatPassword,
-                avatar
             })
         });
         const res = await response.json();
+        console.log(res);
+        //
+        // const avatarResponse = await fetch('http://localhost:3000/api/users/avatar', {
+        //     method: 'POST',
+        //     credentials: 'same-origin',
+        //     headers: {
+        //         'Content-Type': 'multipart/form-data',
+        //     },
+        //     body: JSON.stringify({
+        //         avatarImage,
+        //     })
+        // });
+        // const avatarRes = await avatarResponse.json();
+        // console.log(avatarRes);
+        // console.log(!res.error && !res.statusCode && !res.error && !res.statusCode)
 
-        if(!res.error || !res.statusCode) {
+        if(!res.error && !res.statusCode) {
             redirect(303, 'login');
         }
         else {

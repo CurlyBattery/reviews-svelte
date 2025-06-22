@@ -8,7 +8,7 @@
     let username = $state('');
     let password = $state('');
     let repeatPassword = $state('');
-    let avatar = $state('');
+
     let message = $derived(form?.invalid
         ? 'All fields is required'
         : form?.user
@@ -17,13 +17,22 @@
                 ? 'Password not match'
                 : 'Password too week'
     );
-    console.log(message)
-
     let visible = $derived(form?.invalid | form?.user | (repeatPassword !== "" && repeatPassword !== password) |form?.password);
 
     let succesRegisterVisible = false;
     let succesRegisterMessage = 'Success registration. Please log in'
+
+    // let uploadedImage: string = $state('');
+    // let upload = $derived(uploadedImage);
+    //
+    // function handleImageUpload(e: Event) {
+    //     const image = (e.target as HTMLInputElement)?.files?.[0];
+    //     if(!image) return;
+    //     uploadedImage = URL.createObjectURL(image);
+    //     console.log(uploadedImage)
+    // }
 </script>
+
 
 <div class="main-container">
     <div class="register-box">
@@ -75,10 +84,17 @@
                 <label>Repeat Password</label>
                 <input type="password" name="repeatPassword" bind:value={repeatPassword} required="">
             </div>
-            <div class="user-box">
-                <label>Avatar</label>
-                <input type="text" name="avatar" bind:value={avatar} required="">
-            </div>
+<!--            <div class="user-box">-->
+<!--                <label> Upload Avatar</label>-->
+<!--                <input type="file" name="avatarImage" accept="image/*" on:change={handleImageUpload} />-->
+<!--                <div class="image-container">-->
+<!--                    {#if upload}-->
+<!--                        <img src={uploadedImage} style="max-width: 50ch" alt="" />-->
+<!--                    {:else }-->
+<!--                        <span>Avatar Preview</span>-->
+<!--                    {/if}-->
+<!--                </div>-->
+<!--            </div>-->
 
             <button type="submit" on:click={() => succesRegisterVisible = true}>Register</button>
         </form>
@@ -95,7 +111,6 @@
         <Button color="#ff0" on:click={() => (visible = false)}>Close</Button>
     </span>
 </Snackbar>
-
 <Snackbar bind:succesRegisterVisible bg="#f44336">
     {succesRegisterMessage}
     <span slot="action">
@@ -104,6 +119,7 @@
 </Snackbar>
 
 <style>
+
     .main-container {
         padding: 2em;
         height: 100%;
@@ -233,6 +249,20 @@
     .user-box {
         position: relative;
     }
+    .image-container {
+        width: 100%;
+        min-height: 100px;
+        border: 2px solid #ddd;
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #ccc;
+    }
+    .image-container img {
+        width: 100%;
+    }
     a {
         text-decoration: none;
         color: #581535FF;
@@ -252,6 +282,7 @@
         font-size: 18px;
         font-weight: 500;
         cursor: pointer;
+        margin-top: 28px;
         margin-bottom: 28px;
         transition: 0.3s ease;
     }
@@ -260,4 +291,5 @@
         border: 1px solid #581535FF;
         color: #581535FF;
     }
+
 </style>
