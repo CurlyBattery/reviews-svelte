@@ -7,7 +7,10 @@
 
 
     let {children, data} = $props();
-    let serverAvatar = data?.avatar;
+
+    let serverAvatar: string | undefined  = $state(data?.avatar);
+    let array = serverAvatar !== undefined ? serverAvatar.split('/') : [];
+    let isAvatar: boolean = array.length > 0 ? array?.[array.length -1] !== null : false;
 
     let isDropdownOpen = $state(false) // default state (dropdown close)
 
@@ -45,11 +48,11 @@
                     <li><a href="/reviews/my">My Reviews</a></li>
                 {/if}
             </ul>
-            <button class="profile-img" on:click={handleDropdownClick}><img class="user-pic" alt="The Profile Avatar" src={serverAvatar ? serverAvatar : avatar}/></button>
+            <button class="profile-img" on:click={handleDropdownClick}><img class="user-pic" alt="The Profile Avatar" src={isAvatar ? serverAvatar : avatar}/></button>
 
 
             {#if isDropdownOpen}
-                <SubMenu bind:serverAvatar/>
+                <SubMenu bind:serverAvatar bind:isAvatar/>
             {/if}
         {/if}
     </nav>

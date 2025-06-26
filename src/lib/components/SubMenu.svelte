@@ -4,12 +4,12 @@
     import send from "$lib/assets/send.png";
     import logout from "$lib/assets/logout.png";
 
-    let {serverAvatar = $bindable()} = $props();
+    let {serverAvatar = $bindable(), isAvatar = $bindable()} = $props();
 </script>
 <div class="sub-menu-wrap" id="subMenu" data-sveltekit-reload>
     <div class="sub-menu">
         <div class="user-info">
-            <img src={serverAvatar ? serverAvatar : avatar} alt="">
+            <img src={isAvatar ? serverAvatar : avatar} alt="">
             <h3>Artem Kosyrev</h3>
         </div>
 
@@ -64,6 +64,7 @@
     }
     .user-info img {
         width: 50px;
+        max-height: 50px;
         border-radius: 25%;
         margin-right: 15px;
     }

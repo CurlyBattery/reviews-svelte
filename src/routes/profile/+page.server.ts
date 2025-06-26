@@ -4,7 +4,6 @@ export const load = async ({locals, cookies}) => {
     if(!locals.user) {
         redirect(303, '/login')
     }
-    console.log(locals.user);
 
     const responseAvatar =  await fetch(`http://localhost:3000/api/files/${locals.user.avatarId}`, {
         method: 'GET',
@@ -42,6 +41,29 @@ export const actions = {
         else{
             return {
                 success: false,
+            }
+        }
+
+    },
+    remove: async ({request, cookies}) => {
+        const responseAvatar = await fetch('http://localhost:3000/api/users/avatar', {
+            method: 'DELETE',
+            credentials: 'include',
+            mode: 'no-cors',
+            headers: {
+                'Cookie': await cookies.get('Authentication') ?? '',
+            },
+        });
+        const res = await responseAvatar.json();
+        console.log(res)
+        if(!res.error && !res.statusCode) {
+            return {
+                successRemove: true,
+            }
+        }
+        else{
+            return {
+                successRemove: false,
             }
         }
 

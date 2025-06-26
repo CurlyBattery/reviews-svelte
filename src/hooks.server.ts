@@ -15,7 +15,6 @@ export const handle: Handle = async ({event, resolve}) => {
         },
     });
     let user = await authenticateUser.json();
-    console.log(user)
     if(user?.id) {
         event.locals.user = user
     } else {

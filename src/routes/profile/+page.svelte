@@ -9,6 +9,10 @@
   let upload = $derived(uploadedImage);
   let {form, data} = $props();
 
+  let serverAvatar: string | undefined  = $state(data?.avatar);
+  let array = serverAvatar !== undefined ? serverAvatar.split('/') : [];
+  console.log(array?.[array.length -1] !== null )
+  let isAvatar: boolean = array.length > 0 ? array?.[array.length -1] !== null : false;
 
   function handleUploadImage(e: Event) {
       const image =(e.target as HTMLInputElement).files?.[0];
@@ -16,7 +20,7 @@
       uploadedImage = URL.createObjectURL(image);
   }
 
-  let message = $derived(form?.success ? 'Avatar updated.' : 'Failed to update avatar.');
+  let message = $derived(form?.success ? 'Avatar updated' : form?.successRemove ? 'Avatar removed' : 'Failed to update or remove avatar.');
   let visible = $derived(form?.success);
   let color = $derived(form?.success
       ? '#07a807'
@@ -41,7 +45,7 @@
 
         <div class="settings">
             <div class="user-avatar-info">
-                <img class="avatar" src={data?.avatar ? data.avatar : avatar} alt="User Avatar" />
+                <img class="avatar" src={isAvatar ? serverAvatar : avatar} alt="User Avatar" />
                 <div class="avatar-settings">
                     <h4>Profile Picture</h4>
                     <div class="avatar-edit-container">
@@ -69,7 +73,9 @@
                                 <button onclick={() => (showModal = false)} class="save" type="submit">Save</button>
                             </form>
                         </Modal>
-                        <button class="remove-button">Remove</button>
+                        <form action="?/remove" >
+                            <button type="submit" class="remove-button">Remove</button>
+                        </form>
                     </div>
                     <span>We support PNGs, JPEGs under 10MB.</span>
                 </div>
@@ -164,6 +170,7 @@
     }
     .user-avatar-info .avatar {
         width: 150px;
+        max-height: 150px;
         border-radius: 25%;
         box-shadow: 0 5px 20px 0 rgba(0,0,0,0.4);
     }
