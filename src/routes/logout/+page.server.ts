@@ -1,12 +1,15 @@
 import { redirect} from '@sveltejs/kit';
 import * as setCookieParser from 'set-cookie-parser';
 
-export const load = async () => {
-    redirect(302, '/');
+export const load = async ({locals}) => {
+    if(!locals.user) {
+        redirect(302, '/');
+    }
 };
 
 export const actions = {
     default: async ({cookies})=> {
+
         const response = await fetch('http://localhost:3000/api/authentication/log-out', {
             method: 'POST',
             credentials: 'include',

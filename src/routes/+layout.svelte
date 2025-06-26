@@ -1,14 +1,13 @@
 <script lang="ts">
     import { page } from '$app/state';
     import logo from '$lib/assets/favicon.png';
-    import SubMenu from "$lib/subMenu.svelte";
-    import homeImage from "$lib/assets/home-image.png";
-    import user from "$lib/assets/user.png";
-    import send from "$lib/assets/send.png";
-    import logout from "$lib/assets/logout.png";
+    import avatar from '$lib/assets/avatar.jpg';
+
+    import SubMenu from "$lib/components/subMenu.svelte";
 
 
-    let {children} = $props();
+    let {children, data} = $props();
+    let serverAvatar = data?.avatar;
 
     let isDropdownOpen = $state(false) // default state (dropdown close)
 
@@ -28,7 +27,7 @@
     <title>Svelte Reviews</title>
 </svelte:head>
 
-<div class="box">
+<div class="box" data-sveltekit-reload>
     <nav on:focusout={handleDropdownFocusLoss}>
         <a class="logo" href="/"><img alt="The project logo" src={logo} /></a>
         {#if !page.data.user}
@@ -46,41 +45,12 @@
                     <li><a href="/reviews/my">My Reviews</a></li>
                 {/if}
             </ul>
-            <button class="profile-img" on:click={handleDropdownClick}><img class="user-pic" alt="The Profile Avatar" src={homeImage}/></button>
+            <button class="profile-img" on:click={handleDropdownClick}><img class="user-pic" alt="The Profile Avatar" src={serverAvatar ? serverAvatar : avatar}/></button>
 
 
             {#if isDropdownOpen}
-                <div class="sub-menu-wrap" id="subMenu" >
-                    <div class="sub-menu">
-                        <div class="user-info">
-                            <img src={homeImage} alt="">
-                            <h3>Artem Kosyrev</h3>
-                        </div>
-
-                        <hr>
-
-                        <a href="#" class="sub-menu-link">
-                            <img src={user} alt="">
-                            <p>Edit Profile</p>
-                            <span>></span>
-                        </a>
-                        <a href="#" class="sub-menu-link">
-                            <img src={send} alt="">
-                            <p>Help & Contacts</p>
-                            <span>></span>
-                        </a>
-                        <a href="#" class="sub-menu-link">
-                            <img src={logout} alt="">
-                            <p>Log Out</p>
-                            <span>></span>
-                        </a>
-                    </div>
-                </div>
+                <SubMenu bind:serverAvatar/>
             {/if}
-
-<!--            <form action="/logout" method="POST" use:enhance>-->
-<!--                <button type="submit">Log out</button>-->
-<!--            </form>-->
         {/if}
     </nav>
 
@@ -151,18 +121,6 @@
         padding: 0;
         margin: 0;
     }
-    /*button {*/
-    /*    padding: .6em;*/
-    /*    font-size: var(--font-size-sign-up-button);*/
-    /*    border: 1px solid white;*/
-    /*    background-color: #474747;*/
-    /*    border-radius: 2px;*/
-    /*    color: white;*/
-    /*}*/
-    /*button:hover {*/
-    /*    background-color: #581535FF;*/
-    /*    border: 1px solid #474747;*/
-    /*}*/
     main {
         flex: 1 1 auto;
     }
@@ -171,75 +129,10 @@
         height: auto;
     }
     .user-pic {
-        width: 30px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         cursor: pointer;
         margin-left: 30px;
     }
-
-    .sub-menu-wrap {
-        position: absolute;
-        top: 8%;
-        right: 2%;
-        width: 320px;
-        max-height: 400px;
-        overflow: hidden;
-        transition: max-height 0.5s;
-    }
-
-    .sub-menu {
-        background: #ccc;
-        padding: 20px;
-        margin: 10px;
-        border-radius: 20px;
-    }
-    .user-info {
-        display: flex;
-        align-items: center;
-    }
-    .user-info h3 {
-        font-weight: 500;
-    }
-    .user-info img {
-        width: 40px;
-        border-radius: 50%;
-        margin-right: 15px;
-    }
-    .sub-menu hr {
-        border: 0;
-        height: 2px;
-        width: 100%;
-        background: white;
-        margin: 15px 0 10px
-    }
-    .sub-menu-link {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: #525252;
-        margin: 12px 0;
-    }
-    .sub-menu-link p {
-        width: 100%;
-    }
-    .sub-menu-link img {
-        width: 35px;
-        background: #e5e5e5;
-        border-radius: 35%;
-        padding: 8px;
-        margin-right: 15px;
-    }
-    .sub-menu-link span {
-        font-size: 22px;
-        transition: transform 0.5s;
-    }
-    .sub-menu-link:hover span{
-        transform: translateX(5px);
-        color: #525252;
-    }
-    .sub-menu-link:hover p{
-        font-weight: 600;
-        color: #525252;
-    }
-
 </style>

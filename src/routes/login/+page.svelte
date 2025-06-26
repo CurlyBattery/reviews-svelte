@@ -12,6 +12,11 @@
     let visible = $derived(form?.invalid | form?.credentials);
 </script>
 
+<svelte:head>
+    <title>Login</title>
+</svelte:head>
+
+
 <div class="main-container">
     <div class="login-box">
         <h2>Sign In</h2>

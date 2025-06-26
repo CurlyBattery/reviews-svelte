@@ -6,6 +6,11 @@
     let {data}: PageProps = $props();
 </script>
 
+<svelte:head>
+    <title>Reviews</title>
+</svelte:head>
+
+
 <div class="main-container">
     {#each data?.reviews as review}
         <div class="review-card">

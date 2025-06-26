@@ -13,7 +13,6 @@ export const load = async ({cookies, locals}) => {
         },
     });
     const response = await responseReviews.json();
-    console.log(response)
 
     return {
         reviews: response

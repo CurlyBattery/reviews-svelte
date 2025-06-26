@@ -3,8 +3,9 @@ import {fail, redirect} from "@sveltejs/kit";
 import * as setCookieParser from 'set-cookie-parser';
 
 export const load = async ({locals}) => {
+    console.log(locals)
     if(locals.user) {
-        redirect(302, '/');
+        redirect(302, '/reviews');
     }
 }
 
@@ -13,7 +14,6 @@ export const actions = {
         const form = await request.formData();
         const email = form.get('email');
         const password = form.get('password');
-        console.log(email)
         if(
             typeof email !== 'string' ||
             typeof password !== 'string' ||
@@ -42,7 +42,6 @@ export const actions = {
             }),
         });
         const res = await response.json();
-        console.log(res);
 
         for(const str of setCookieParser.splitCookiesString(response.headers.get('set-cookie'))) {
             const {name, value, ...options} = setCookieParser.parseString(str);

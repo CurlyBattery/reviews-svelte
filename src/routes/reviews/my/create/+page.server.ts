@@ -14,10 +14,6 @@ export const actions = {
         const category = form.get('selectedCategory');
         const text = form.get('text');
         const preview = form.get('preview');
-        console.log(title)
-        console.log(category)
-        console.log(text)
-        console.log(preview)
         if(
             typeof title !== 'string' ||
             typeof category !== 'string' ||
