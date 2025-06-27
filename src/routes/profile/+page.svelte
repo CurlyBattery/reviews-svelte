@@ -2,31 +2,15 @@
   import avatar from '$lib/assets/avatar.jpg';
   import {enhance} from '$app/forms';
   import Modal from '$lib/components/Modal.svelte';
-  import {Button, Snackbar} from "svelte-mui";
 
   let showModal = $state(false);
   let uploadedImage: string = $state('');
   let upload = $derived(uploadedImage);
-  let {form, data} = $props();
+  let { data} = $props();
 
   let serverAvatar: string | undefined  = $state(data?.avatar);
   let array = serverAvatar !== undefined ? serverAvatar.split('/') : [];
   let isAvatar: boolean = array.length > 0 ? array?.[array.length -1] !== 'null' : false;
-
-  function handleUploadImage(e: Event) {
-      const image =(e.target as HTMLInputElement).files?.[0];
-      if(!image) return;
-      uploadedImage = URL.createObjectURL(image);
-  }
-  let forma = $state(form);
-  let message = $derived(forma?.success ? 'Avatar updated' : forma?.successRemove ? 'Avatar removed' : forma?.successUpdate ? 'Profile updated' : 'Failed to update or remove');
-  let visible: boolean = $derived(forma?.success | forma?.successUpdate | forma?.successRemove);
-  console.log(message)
-  console.log(visible)
-  let color = $derived((form?.success | form?.successRemove | form?.successUpdate)
-      ? '#07a807'
-      : '#f11212');
-
 
   let email = $state(data?.user ? data.user.email : '');
   let username = $state(data?.user ? data.user.username : '');
@@ -48,10 +32,18 @@
           });
 
           if (!response) throw new Error('Failed to delete avatar');
-          const result = await response.json();
+          const res = await response.json();
+          console.log(res)
       } catch (err) {
           console.error('Error deleting avatar:', err);
       }
+  }
+
+
+  function handleUploadImage(e: Event) {
+      const image =(e.target as HTMLInputElement).files?.[0];
+      if(!image) return;
+      uploadedImage = URL.createObjectURL(image);
   }
 
 </script>
@@ -125,13 +117,6 @@
         </div>
     </div>
 </div>
-
-<Snackbar bind:visible bg={color}>
-    {message}
-    <span slot="action">
-        <Button color="#fff" on:click={() => (visible = false)}>Close</Button>
-    </span>
-</Snackbar>
 
 
 <style>

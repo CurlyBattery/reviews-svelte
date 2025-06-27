@@ -5,17 +5,20 @@ export const load = async ({cookies, locals}) => {
         redirect(303, '/')
     }
     let myReviews = [];
+    const jwt = cookies.get('Authentication');
 
     const responseMyReviews = await fetch('http://localhost:3000/api/reviews/my', {
         method: 'GET',
         credentials: 'include',
         headers: {
             "Content-Type": "application/json",
-            'Cookie': cookies.get('Authentication') ?? '',
+            Cookie: `Authentication=${jwt}`
         },
     });
-    const response = await responseMyReviews.json();
-    myReviews = response;
+    const res = await responseMyReviews.json();
+    console.log(res)
+
+    myReviews = res;
 
     return {
         myReviews,

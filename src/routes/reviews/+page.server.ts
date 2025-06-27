@@ -6,19 +6,33 @@ export const load = async ({cookies, locals}) => {
     }
 
     let reviews = [];
+    const jwt = cookies.get('Authentication');
+
     const responseReviews = await fetch('http://localhost:3000/api/reviews', {
         method: 'GET',
         credentials: 'include',
         headers: {
             "Content-Type": "application/json",
-            'Cookie': cookies.get('Authentication') ?? '',
+            Cookie: `Authentication=${jwt}`
+
         },
     });
-    const response = await responseReviews.json();
-    reviews = response;
+
+    const responseAvatar =  await fetch(`http://localhost:3000/api/files/${locals.user.avatarId}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            "Content-Type": "application/json",
+            Cookie: `Authentication=${jwt}`
+
+        },
+    });
+    const res = await responseReviews.json();
+    reviews = res;
 
     return {
-        reviews,
+        myReviews: reviews,
+        cookieValue: jwt,
     }
 }
 

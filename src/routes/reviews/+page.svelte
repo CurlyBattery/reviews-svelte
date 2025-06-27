@@ -1,9 +1,31 @@
 <script lang="ts">
     import type {PageProps} from "./$types";
     import logo from "$lib/assets/favicon.png";
-    import homeImage from "$lib/assets/home-image.png";
 
     let {data}: PageProps = $props();
+
+    async function handleImage( previewId: number) {
+
+        try {
+            const jwt = data?.cookieValue ?? '';
+
+            const response = await fetch(`http://localhost:3000/api/files/${previewId}`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                    Cookie: `Authentication=${jwt}`
+                },
+            });
+
+            if (!response) throw new Error('Failed to delete avatar');
+            const res = await response.json();
+            console.log(res)
+            return res;
+        } catch (err) {
+            console.error('Error deleting avatar:', err);
+        }
+    }
 </script>
 
 <svelte:head>
@@ -12,19 +34,19 @@
 
 
 <div class="main-container">
-    {#each data?.reviews as review}
+    {#each data?.myReviews as review}
         <div class="review-card">
             <div class="card-header">
-                <img alt="Preview Review" src={logo} />
+                <img alt="Preview Review" src={`http://localhost:3000/api/files/${review.previewId}`} />
             </div>
             <div class="card-body">
                 <span class="tag tag-teal">{review.category}</span>
                 <h4>{review.title}</h4>
                 <p>{review.text}</p>
                 <div class="user">
-                    <img alt="Avatar User" src={homeImage} />
+                        <img alt="Preview Review" src={`http://localhost:3000/api/files/${review.userAndReviews[0].user.avatarId}`} />
                     <div class="user-info">
-                        <h5>{review.createdAt}</h5>
+                        <h5>{review.userAndReviews[0].user.username}</h5>
                     </div>
                 </div>
             </div>
@@ -93,6 +115,12 @@
         width: 40px;
         height: 40px;
         margin-right: 10px;
+    }
+    .user-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
     }
     .user-info h5{
         margin: 0;

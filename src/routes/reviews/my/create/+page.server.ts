@@ -10,39 +10,19 @@ export const load = async ({ locals}) => {
 export const actions = {
     create: async ({request, cookies}) => {
         const form = await request.formData();
-        const title = form.get('title');
-        const category = form.get('selectedCategory');
-        const text = form.get('text');
-        const preview = form.get('preview');
-        if(
-            typeof title !== 'string' ||
-            typeof category !== 'string' ||
-            typeof text !== 'string' ||
-            typeof preview !== 'string' ||
-            !title ||
-            !category ||
-            !text ||
-            !preview
-        ) {
-            return fail(400, {invalid: true})
-        }
 
+        const jwt = cookies.get('Authentication');
 
-        const responseReview = await fetch(`http://localhost:3000/api/reviews`, {
+        const responseAvatar = await fetch('http://localhost:3000/api/reviews', {
             method: 'POST',
             credentials: 'include',
             headers: {
-                "Content-Type": "application/json",
-                'Cookie': cookies.get('Authentication') ?? '',
+                Cookie: `Authentication=${jwt}`
             },
-            body: JSON.stringify({
-                title,
-                category: category,
-                text,
-                preview,
-            })
+            body: form
         });
-        const res = await responseReview.json();
+        const res = await responseAvatar.json();
+        console.log(res);
 
         if(!res.error || !res.statusCode) {
             redirect(303, '/reviews/my');
@@ -50,5 +30,6 @@ export const actions = {
         else {
             return fail(res.statusCode, {badRequest: true})
         }
-    }
+
+    },
 } satisfies Actions;

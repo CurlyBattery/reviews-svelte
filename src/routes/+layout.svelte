@@ -48,6 +48,7 @@
                 {:else}
                     <li><a href="/reviews">Reviews</a></li>
                     <li><a href="/reviews/my">My Reviews</a></li>
+                    <li><a href="/reviews/my/create">New</a></li>
                 {/if}
             </ul>
             <button class="profile-img" on:click={handleDropdownClick}><img class="user-pic" alt="The Profile Avatar" src={isAvatar ? serverAvatar : avatar}/></button>

@@ -1,9 +1,8 @@
 <script lang="ts">
-    import {Button, Snackbar} from "svelte-mui";
     import {enhance} from "$app/forms";
     import { Select } from "flowbite-svelte";
 
-    let {form} = $props();
+    let { data} = $props();
 
     let categories = [
         { value: "Book", name: "Книги" },
@@ -14,44 +13,44 @@
     let title = $state('');
     let selectedCategory = $state('');
     let text = $state('');
-    let preview = $state('');
-    let message = $derived(
-        form?.invalid
-            ? 'All fields is required'
-            : form?.review
-                ? 'Review is taken'
-                : 'Successful created'
-    );
-    let visible = $derived(form?.invalid | form?.review );
+    let uploadedImage: string = $state('');
+    let upload = $derived(uploadedImage);
 
-
+    function handleUploadImage(e: Event) {
+        const image =(e.target as HTMLInputElement).files?.[0];
+        if(!image) return;
+        uploadedImage = URL.createObjectURL(image);
+    }
 </script>
 
         <h2>Review</h2>
-        <form action="?/create" method="POST" use:enhance>
+        <form action="?/create" method="POST" enctype="multipart/form-data" use:enhance>
             <div class="review-box">
                 <label>Title</label>
                 <input  name="title" bind:value={title} required="" type="text">
             </div>
             <div class="review-box">
                 <label>Category</label>
-                <Select name="selectedCategory" items={categories} bind:value={selectedCategory} required=""/>
+                <Select name="category" items={categories} bind:value={selectedCategory} required=""/>
             </div>
             <div class="review-box">
                 <label>Text</label>
                 <textarea name="text" bind:value={text} cols="30" rows="10" ></textarea>
             </div>
-            <div class="review-box">
-                <label>Preview</label>
-                <input type="text" name="preview" bind:value={preview} required="">
+            <div class="review">
+                <label class="input-file">
+                    <input type="file" name="file" accept="image/*" onchange={handleUploadImage} >
+                    <span class="input-file-btn" style="color: white">Select File</span>
+                </label>
+
+                <div class="preview">
+                    {#if upload}
+                        <img src={uploadedImage} style="max-width: 50ch" alt="">
+                    {:else}
+                        <span>Avatar Preview</span>
+                    {/if}
+                </div>
             </div>
 
             <button type="submit">Create Review</button>
         </form>
-
-<Snackbar bind:visible bg="#f44336">
-    {message}
-    <span slot="action">
-        <Button color="#ff0" on:click={() => (visible = false)}>Close</Button>
-    </span>
-</Snackbar>
