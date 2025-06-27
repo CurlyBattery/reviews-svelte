@@ -10,8 +10,8 @@ export const handle: Handle = async ({event, resolve}) => {
         method: 'GET',
         credentials: 'include',
         headers: {
-            "Content-Type": "application/json",
-            'Cookie': event.cookies.get('Authentication') ?? '',
+            'Content-Type': 'application/json',
+            Cookie: `Authentication=${accessToken}`
         },
     });
     let user = await authenticateUser.json();

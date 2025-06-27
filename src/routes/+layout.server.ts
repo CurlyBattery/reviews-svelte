@@ -1,4 +1,3 @@
-import {redirect} from "@sveltejs/kit";
 
 export const load = async ({locals, cookies}) => {
     if(locals.user) {
@@ -6,8 +5,7 @@ export const load = async ({locals, cookies}) => {
             method: 'GET',
             credentials: 'include',
             headers: {
-                "Content-Type": "application/json",
-                'Cookie': cookies.get('Authentication') ?? '',
+                'Content-Type': 'application/json',
             },
         });
 

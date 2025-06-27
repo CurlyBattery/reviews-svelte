@@ -3,7 +3,6 @@ import {fail, redirect} from "@sveltejs/kit";
 import * as setCookieParser from 'set-cookie-parser';
 
 export const load = async ({locals}) => {
-    console.log(locals)
     if(locals.user) {
         redirect(302, '/reviews');
     }
@@ -26,13 +25,10 @@ export const actions = {
         const responseUser = await fetch(`http://localhost:3000/api/users?email=${email}`);
         const user = await responseUser.json();
         if(!user){
-            console.log(124)
             return fail(400, {credentials: true})
         }
-
         const response = await fetch('http://localhost:3000/api/authentication/log-in', {
             method: 'POST',
-            credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -41,9 +37,10 @@ export const actions = {
                 password,
             }),
         });
+        console.log(response)
         const res = await response.json();
 
-        for(const str of setCookieParser.splitCookiesString(response.headers.get('set-cookie'))) {
+        for(const str of setCookieParser.splitCookiesString(response.headers.get('set-cookie') ?? '')) {
             const {name, value, ...options} = setCookieParser.parseString(str);
 
             cookies.set(name, value, options);

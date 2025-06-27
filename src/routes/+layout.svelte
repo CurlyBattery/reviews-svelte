@@ -7,10 +7,11 @@
 
 
     let {children, data} = $props();
+    let user = data?.user;
 
     let serverAvatar: string | undefined  = $state(data?.avatar);
     let array = serverAvatar !== undefined ? serverAvatar.split('/') : [];
-    let isAvatar: boolean = array.length > 0 ? array?.[array.length -1] !== null : false;
+    let isAvatar: boolean = array.length > 0 ? array?.[array.length -1] !== 'null' : false;
 
     let isDropdownOpen = $state(false) // default state (dropdown close)
 
@@ -45,6 +46,7 @@
                 {#if page.data.user.role === 'Admin'}
                     <li><a href="/admin">Admin</a></li>
                 {:else}
+                    <li><a href="/reviews">Reviews</a></li>
                     <li><a href="/reviews/my">My Reviews</a></li>
                 {/if}
             </ul>
@@ -52,7 +54,7 @@
 
 
             {#if isDropdownOpen}
-                <SubMenu bind:serverAvatar bind:isAvatar/>
+                <SubMenu bind:serverAvatar bind:isAvatar bind:user/>
             {/if}
         {/if}
     </nav>

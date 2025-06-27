@@ -4,6 +4,8 @@ export const load = async ({cookies, locals}) => {
     if(!locals.user) {
         redirect(303, '/')
     }
+    let myReviews = [];
+
     const responseMyReviews = await fetch('http://localhost:3000/api/reviews/my', {
         method: 'GET',
         credentials: 'include',
@@ -12,10 +14,11 @@ export const load = async ({cookies, locals}) => {
             'Cookie': cookies.get('Authentication') ?? '',
         },
     });
-    const myReviews = await responseMyReviews.json();
+    const response = await responseMyReviews.json();
+    myReviews = response;
 
     return {
-        myReviews
+        myReviews,
     }
 }
 

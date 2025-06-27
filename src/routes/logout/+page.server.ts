@@ -10,12 +10,15 @@ export const load = async ({locals}) => {
 export const actions = {
     default: async ({cookies})=> {
 
+
+        const jwt = cookies.get('Authentication');
+
         const response = await fetch('http://localhost:3000/api/authentication/log-out', {
             method: 'POST',
             credentials: 'include',
             headers: {
                 "Content-Type": "application/json",
-                'Cookie': cookies.get('Authentication') ?? '',
+                Cookie: `Authentication=${jwt}`
             },
         });
         const res = await response.json();

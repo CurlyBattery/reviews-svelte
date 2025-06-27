@@ -11,20 +11,49 @@
 
   let serverAvatar: string | undefined  = $state(data?.avatar);
   let array = serverAvatar !== undefined ? serverAvatar.split('/') : [];
-  console.log(array?.[array.length -1] !== null )
-  let isAvatar: boolean = array.length > 0 ? array?.[array.length -1] !== null : false;
+  let isAvatar: boolean = array.length > 0 ? array?.[array.length -1] !== 'null' : false;
 
   function handleUploadImage(e: Event) {
       const image =(e.target as HTMLInputElement).files?.[0];
       if(!image) return;
       uploadedImage = URL.createObjectURL(image);
   }
-
-  let message = $derived(form?.success ? 'Avatar updated' : form?.successRemove ? 'Avatar removed' : 'Failed to update or remove avatar.');
-  let visible = $derived(form?.success);
-  let color = $derived(form?.success
+  let forma = $state(form);
+  let message = $derived(forma?.success ? 'Avatar updated' : forma?.successRemove ? 'Avatar removed' : forma?.successUpdate ? 'Profile updated' : 'Failed to update or remove');
+  let visible: boolean = $derived(forma?.success | forma?.successUpdate | forma?.successRemove);
+  console.log(message)
+  console.log(visible)
+  let color = $derived((form?.success | form?.successRemove | form?.successUpdate)
       ? '#07a807'
-      : '#f11212')
+      : '#f11212');
+
+
+  let email = $state(data?.user ? data.user.email : '');
+  let username = $state(data?.user ? data.user.username : '');
+
+  async function formDeleteHandler(event) {
+      event.preventDefault();
+
+      try {
+          const jwt = data?.cookieValue ?? '';
+
+          const response = await fetch('http://localhost:3000/api/users/avatar', {
+              method: 'DELETE',
+              credentials: 'include',
+              headers: {
+                  "Content-Type": "application/json",
+                  Cookie: `Authentication=${jwt}`
+
+              },
+          });
+
+          if (!response) throw new Error('Failed to delete avatar');
+          const result = await response.json();
+      } catch (err) {
+          console.error('Error deleting avatar:', err);
+      }
+  }
+
 </script>
 
 <svelte:head>
@@ -33,7 +62,7 @@
 
 
 <div class="main">
-    <div class="profile" data-sveltekit-reload>
+    <div class="profile">
         <div class="head-info">
             <h3>Profile</h3>
             <span>Update your photo and personal details here.</span>
@@ -52,7 +81,7 @@
                         <button class="upload-button" onclick={() => (showModal = true)}>Upload Image</button>
                         <Modal bind:showModal bind:uploadedImage>
                             {#snippet header()}
-                                <h2>Artem Kosyrev</h2>
+                                <h2>{data?.user ? data.user.username : 'Default username'}</h2>
                             {/snippet}
 
                             <form class="avatar-form" action="?/editPhoto" method="POST" enctype="multipart/form-data" use:enhance>
@@ -73,27 +102,24 @@
                                 <button onclick={() => (showModal = false)} class="save" type="submit">Save</button>
                             </form>
                         </Modal>
-                        <form action="?/remove" >
-                            <button type="submit" class="remove-button">Remove</button>
-                        </form>
+                        <button onclick={formDeleteHandler} type="submit" class="remove-button">Remove</button>
                     </div>
                     <span>We support PNGs, JPEGs under 10MB.</span>
                 </div>
             </div>
-            <form action="/edit-user" method="POST" use:enhance>
+            <form action="?/edit" method="POST" use:enhance>
                 <div class="profile-box">
                     <label>Username</label>
-                    <input type="text" />
+                    <input name="username" bind:value={username} type="text" />
                 </div>
 
                 <div class="profile-box">
                     <label>Email</label>
-                    <input type="email" />
+                    <input name="email" bind:value={email} type="email" />
                 </div>
 
                 <div class="profile-edit-container">
                     <button class="save-button" type="submit">Save Changes</button>
-                    <button class="cancel-button">Cancel</button>
                 </div>
             </form>
         </div>

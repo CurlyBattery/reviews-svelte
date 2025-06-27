@@ -1,30 +1,30 @@
 <script>
     import avatar from "$lib/assets/avatar.jpg";
-    import user from "$lib/assets/user.png";
-    import send from "$lib/assets/send.png";
-    import logout from "$lib/assets/logout.png";
+    import userIcon from "$lib/assets/user.png";
+    import sendIcon from "$lib/assets/send.png";
+    import logoutIcon from "$lib/assets/logout.png";
 
-    let {serverAvatar = $bindable(), isAvatar = $bindable()} = $props();
+    let {serverAvatar = $bindable(), isAvatar = $bindable(), user=$bindable()} = $props();
 </script>
 <div class="sub-menu-wrap" id="subMenu" data-sveltekit-reload>
     <div class="sub-menu">
         <div class="user-info">
             <img src={isAvatar ? serverAvatar : avatar} alt="">
-            <h3>Artem Kosyrev</h3>
+            <h3>{user ? user.username : 'Default username'}</h3>
         </div>
 
         <a href="/profile" class="sub-menu-link">
-            <img src={user} alt="">
+            <img src={userIcon} alt="">
             <p>Edit Profile</p>
             <span>></span>
         </a>
         <a href="/info" class="sub-menu-link">
-            <img src={send} alt="">
+            <img src={sendIcon} alt="">
             <p>Help & Contacts</p>
             <span>></span>
         </a>
         <div class="sub-menu-link">
-            <img src={logout} alt="">
+            <img src={logoutIcon} alt="">
             <form method="POST" action="/logout">
                 <button type="submit">Log Out</button>
             </form>
