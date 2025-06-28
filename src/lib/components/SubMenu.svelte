@@ -3,9 +3,17 @@
     import userIcon from "$lib/assets/user.png";
     import sendIcon from "$lib/assets/send.png";
     import logoutIcon from "$lib/assets/logout.png";
+    import {toast, Toaster} from "svelte-sonner";
 
     let {serverAvatar = $bindable(), isAvatar = $bindable(), user=$bindable()} = $props();
+
+
+    const addToast = () =>  {
+        toast.success('Log out');
+    };
 </script>
+<Toaster />
+
 <div class="sub-menu-wrap" id="subMenu" data-sveltekit-reload>
     <div class="sub-menu">
         <div class="user-info">
@@ -26,7 +34,7 @@
         <div class="sub-menu-link">
             <img src={logoutIcon} alt="">
             <form method="POST" action="/logout">
-                <button type="submit">Log Out</button>
+                <button on:click={addToast} type="submit">Log Out</button>
             </form>
             <span>></span>
         </div>

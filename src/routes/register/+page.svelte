@@ -1,27 +1,18 @@
 <script lang="ts">
     import {enhance} from '$app/forms';
-    import { Snackbar, Button } from 'svelte-mui';
-
-    let {form} = $props();
+    import {toast, Toaster} from "svelte-sonner";
 
     let email = $state('');
     let username = $state('');
     let password = $state('');
     let repeatPassword = $state('');
 
-    let message = $derived(form?.invalid
-        ? 'All fields is required'
-        : form?.user
-            ? 'Username is taken'
-            : repeatPassword !== "" && repeatPassword !== password
-                ? 'Password not match'
-                : 'Password too week'
-    );
-    let visible = $derived(form?.invalid | form?.user | (repeatPassword !== "" && repeatPassword !== password) |form?.password);
 
-    let succesRegisterVisible = false;
-    let succesRegisterMessage = 'Success registration. Please log in'
+    const addToast = () =>  {
+        toast.success('Avatar changed');
+    };
 </script>
+<Toaster />
 
 <svelte:head>
     <title>Registration</title>
@@ -79,27 +70,13 @@
                 <input type="password" name="repeatPassword" bind:value={repeatPassword} required="">
             </div>
 
-            <button type="submit" on:click={() => succesRegisterVisible = true}>Register</button>
+            <button type="submit" onclick={addToast}>Register</button>
         </form>
     </div>
     <div class="already_account">
         Already have an account? <a href="/login">Sign In</a>
     </div>
 </div>
-
-
-<Snackbar bind:visible bg="#f44336">
-    {message}
-    <span slot="action">
-        <Button color="#ff0" on:click={() => (visible = false)}>Close</Button>
-    </span>
-</Snackbar>
-<Snackbar bind:succesRegisterVisible bg="#f44336">
-    {succesRegisterMessage}
-    <span slot="action">
-        <Button color="#ff0" on:click={() => (visible = false)}>Close</Button>
-    </span>
-</Snackbar>
 
 <style>
 

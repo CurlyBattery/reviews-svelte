@@ -1,21 +1,19 @@
 <script lang="ts">
     import {enhance} from '$app/forms';
-    import { Snackbar, Button } from 'svelte-mui';
-
-    let { form } = $props();
+    import { Toaster, toast } from 'svelte-sonner'
 
     let email = $state('');
     let password = $state('');
-    let message = $derived(form?.credentials
-        ? 'You have entered the wrong credentials'
-        : 'All fields is required');
-    let visible = $derived(form?.invalid | form?.credentials);
+
+    const addToast = () =>  {
+        toast.success('Login successful');
+    };
 </script>
+<Toaster />
 
 <svelte:head>
     <title>Login</title>
 </svelte:head>
-
 
 <div class="main-container">
     <div class="login-box">
@@ -53,20 +51,13 @@
                 <input type="password" name="password" bind:value={password} required="">
             </div>
 
-            <button type="submit">Log in</button>
+            <button on:click={addToast} type="submit">Log in</button>
         </form>
     </div>
     <div class="dont_account">
         Don't have an account yet? <a href="/register">Sign Up</a>
     </div>
 </div>
-
-<Snackbar bind:visible bg="#f44336">
-    {message}
-    <span slot="action">
-        <Button color="#fff" on:click={() => (visible = false)}>Close</Button>
-    </span>
-</Snackbar>
 
 <style>
     .main-container {

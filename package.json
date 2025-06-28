@@ -25,6 +25,7 @@
 	"dependencies": {
 		"flowbite-svelte": "^1.7.1",
 		"set-cookie-parser": "^2.7.1",
-		"svelte-mui": "^0.5.12"
+		"svelte-french-toast": "^1.2.0",
+		"svelte-sonner": "^1.0.5"
 	}
 }

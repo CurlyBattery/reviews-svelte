@@ -13,17 +13,9 @@ export const actions = {
         const form = await request.formData();
         const email = form.get('email');
         const password = form.get('password');
-        if(
-            typeof email !== 'string' ||
-            typeof password !== 'string' ||
-            !email ||
-            !password
-        ) {
-            return fail(400, {invalid: true})
-        }
 
         const responseUser = await fetch(`http://localhost:3000/api/users?email=${email}`);
-        const user = await responseUser.json();
+        const [user] = await responseUser.json();
         if(!user){
             return fail(400, {credentials: true})
         }
@@ -37,8 +29,8 @@ export const actions = {
                 password,
             }),
         });
-        console.log(response)
         const res = await response.json();
+        console.log(res)
 
         for(const str of setCookieParser.splitCookiesString(response.headers.get('set-cookie') ?? '')) {
             const {name, value, ...options} = setCookieParser.parseString(str);

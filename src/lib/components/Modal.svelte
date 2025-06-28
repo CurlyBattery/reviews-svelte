@@ -1,4 +1,5 @@
 <script>
+
     let{showModal = $bindable(), header, children, uploadedImage = $bindable()} = $props();
 
     let dialog = $state();
@@ -6,6 +7,7 @@
     $effect(() => {
       if (showModal) dialog.showModal();
     })
+
 </script>
 
 <dialog

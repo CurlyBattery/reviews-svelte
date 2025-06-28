@@ -2,6 +2,7 @@
   import avatar from '$lib/assets/avatar.jpg';
   import {enhance} from '$app/forms';
   import Modal from '$lib/components/Modal.svelte';
+  import {toast, Toaster} from "svelte-sonner";
 
   let showModal = $state(false);
   let uploadedImage: string = $state('');
@@ -20,6 +21,7 @@
 
       try {
           const jwt = data?.cookieValue ?? '';
+          console.log(jwt)
 
           const response = await fetch('http://localhost:3000/api/users/avatar', {
               method: 'DELETE',
@@ -27,7 +29,6 @@
               headers: {
                   "Content-Type": "application/json",
                   Cookie: `Authentication=${jwt}`
-
               },
           });
 
@@ -37,16 +38,25 @@
       } catch (err) {
           console.error('Error deleting avatar:', err);
       }
+
+
   }
-
-
   function handleUploadImage(e: Event) {
       const image =(e.target as HTMLInputElement).files?.[0];
       if(!image) return;
       uploadedImage = URL.createObjectURL(image);
   }
-
+  const addToast = () =>  {
+      toast.success('Profile updated');
+  };
+  const addImageToast = () =>  {
+      toast.success('Avatar changed');
+  };
+  const addDeleteImageToast = () =>  {
+      toast.success('Avatar deleted');
+  };
 </script>
+<Toaster />
 
 <svelte:head>
     <title>Profile</title>
@@ -91,10 +101,10 @@
                                         {/if}
                                     </div>
                                 </div>
-                                <button onclick={() => (showModal = false)} class="save" type="submit">Save</button>
+                                <button onclick={() => { addImageToast(); showModal = false; }}  class="save" type="submit">Save</button>
                             </form>
                         </Modal>
-                        <button onclick={formDeleteHandler} type="submit" class="remove-button">Remove</button>
+                        <button onclick={(event) => {formDeleteHandler(event); addDeleteImageToast()}} type="submit" class="remove-button">Remove</button>
                     </div>
                     <span>We support PNGs, JPEGs under 10MB.</span>
                 </div>
@@ -111,7 +121,7 @@
                 </div>
 
                 <div class="profile-edit-container">
-                    <button class="save-button" type="submit">Save Changes</button>
+                    <button class="save-button" onclick={addToast} type="submit">Save Changes</button>
                 </div>
             </form>
         </div>
