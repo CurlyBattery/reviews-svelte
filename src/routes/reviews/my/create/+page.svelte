@@ -1,9 +1,6 @@
 <script lang="ts">
     import {enhance} from "$app/forms";
-    import { Select } from "flowbite-svelte";
     import {toast, Toaster} from "svelte-sonner";
-
-    let { data} = $props();
 
     let categories = [
         { value: "Book", name: "Книги" },
@@ -14,14 +11,6 @@
     let title = $state('');
     let selectedCategory = $state('');
     let text = $state('');
-    let uploadedImage: string = $state('');
-    let upload = $derived(uploadedImage);
-
-    function handleUploadImage(e: Event) {
-        const image =(e.target as HTMLInputElement).files?.[0];
-        if(!image) return;
-        uploadedImage = URL.createObjectURL(image);
-    }
 
     const addToast = () =>  {
         toast.success('Review created');
@@ -73,9 +62,9 @@
                     <div class="grid">
                         <div class="controls">
                             <label for="fileUpload"></label>
-                            <input id="fileUpload" type="file" name="file" accept="image/*" onchange={handleUploadImage} >
+                            <input id="fileUpload" type="file" name="file" accept="image/*" >
                         </div>
-                        <button type="submit" value="Submit" class="col-1-4">Создать ревью</button>
+                        <button onclick={addToast} type="submit" value="Submit" class="col-1-4">Создать ревью</button>
                     </div>
                 </div>
             </form>

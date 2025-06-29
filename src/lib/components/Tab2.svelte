@@ -1,9 +1,7 @@
 <script lang="ts">
+    let {reviews = $bindable()} = $props();
 
-    import type {PageProps} from "../$types";
-    import avatar from "$lib/assets/avatar.jpg";
-
-    let {data}: PageProps = $props();
+    import avatar from '$lib/assets/avatar.jpg';
 
     function handleImage(review) {
         let serverAvatar: string | undefined  = $state(`http://localhost:3000/api/files/${review.userAndReviews[0].user.avatarId}`);
@@ -11,6 +9,7 @@
         let isAvatar: boolean = array.length > 0 ? array?.[array.length -1] !== 'null' : false;
         return isAvatar ? serverAvatar : avatar;
     }
+
     const makeCategory = (category: string) => {
         if(category === 'Game') {
             return 'Игры';
@@ -22,74 +21,52 @@
             return category;
         }
     }
-    const getTagClass = (category: string): string => {
-        switch (category) {
-            case 'Game':
-                return 'tag-red';
-            case 'Movie':
-                return 'tag-blue';
-            case 'Book':
-                return 'tag-brown';
-            default:
-                return 'tag-default';
-        }
-    };
-
 </script>
 
-<svelte:head>
-    <title>My Reviews</title>
-</svelte:head>
-
-    {#if data?.myReviews.length !== 0}
-        <div class="main-container">
-            {#each data?.myReviews as review}
-                <div class="review-card">
-                    <div class="card-header">
-                        <img alt="Preview Review" src={`http://localhost:3000/api/files/${review.previewId}`} />
-                    </div>
-                    <div class="card-body">
-                        <span class="tag {getTagClass(review.category)}">{makeCategory(review.category)}</span>
-                        <h4>{review.title}</h4>
-                        <p>{review.text}</p>
-                        <div class="user">
-                            <img alt="Avatar" src={handleImage(review)} />
-                            <div class="user-info">
-                                <h5>{review.userAndReviews[0].user.username}</h5>
-                            </div>
+<div class="main-container">
+    {#if reviews.length !== 0}
+        {#each reviews as review}
+            <div class="review-card">
+                <div class="card-header">
+                    <img alt="Preview Review" src={`http://localhost:3000/api/files/${review.previewId}`} />
+                </div>
+                <div class="card-body">
+                    <span class="tag tag-teal">{makeCategory(review.category)}</span>
+                    <h4>{review.title}</h4>
+                    <p>{review.text}</p>
+                    <div class="user">
+                        <img alt="Avatar" src={handleImage(review)} />
+                        <div class="user-info">
+                            <h5>{review.userAndReviews[0].user.username}</h5>
                         </div>
                     </div>
                 </div>
-            {/each}
-
-        </div>
-
+            </div>
+        {/each}
     {:else}
         <div class="not-reviews">
             <h2>Отзывов пока нет...</h2>
         </div>
     {/if}
+</div>
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-
     .main-container {
         display: flex;
+        max-width: 700px ;
         justify-content: flex-start;
         flex-wrap: wrap;
         font-family: "Roboto", sans-serif;
         color: #10182f;
-        max-width: 700px;
-        padding: 10px;
-        margin: 10px;
-        border: 1px solid #dee2e6;
+        margin: 0 100px;
     }
     .not-reviews {
+        width: 100%;
         display: flex;
         flex-direction: column;
-        padding: 10px;
-        margin: 10px;
-        border: 1px solid #dee2e6;
+        justify-content: center;
+        align-items: center;
     }
     .review-card {
         margin: 10px;
@@ -123,22 +100,9 @@
         text-transform: uppercase;
         cursor: pointer;
     }
-    .tag-red {
-        background-color: #e74c3c;
-    }
-
-    .tag-blue {
+    .tag-teal {
         background-color: #3498db;
     }
-
-    .tag-brown {
-        background-color: #8B4513;
-    }
-
-    .tag-default {
-        background-color: #cccccc; /* По умолчанию */
-    }
-
 
     .card-body p{
         font-size: 13px;
@@ -163,6 +127,4 @@
     .user-info h5{
         margin: 0;
     }
-
 </style>
-

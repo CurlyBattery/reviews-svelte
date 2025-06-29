@@ -5,33 +5,47 @@ export const load = async ({cookies, locals}) => {
         redirect(303, '/login')
     }
 
-    let reviews = [];
+    let gameReviews = [];
+    let movieReviews = [];
+    let bookReviews = [];
     const jwt = cookies.get('Authentication');
 
-    const responseReviews = await fetch('http://localhost:3000/api/reviews', {
+    const responseGameReviews = await fetch('http://localhost:3000/api/reviews?category=Game', {
         method: 'GET',
         credentials: 'include',
         headers: {
             "Content-Type": "application/json",
             Cookie: `Authentication=${jwt}`
-
         },
     });
-
-    const responseAvatar =  await fetch(`http://localhost:3000/api/files/${locals.user.avatarId}`, {
+    const responseMovieReviews = await fetch('http://localhost:3000/api/reviews?category=Movie', {
         method: 'GET',
         credentials: 'include',
         headers: {
             "Content-Type": "application/json",
             Cookie: `Authentication=${jwt}`
-
         },
     });
-    const res = await responseReviews.json();
-    reviews = res;
+    const responseBookReviews = await fetch('http://localhost:3000/api/reviews?category=Book', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            "Content-Type": "application/json",
+            Cookie: `Authentication=${jwt}`
+        },
+    });
+
+    const resGame = await responseGameReviews.json();
+    gameReviews = resGame;
+    const resMovie = await responseMovieReviews.json();
+    movieReviews = resMovie;
+    const resBook = await responseBookReviews.json();
+    bookReviews = resBook;
 
     return {
-        myReviews: reviews,
+        gameData: gameReviews,
+        movieData: movieReviews,
+        bookData: bookReviews,
         cookieValue: jwt,
     }
 }
