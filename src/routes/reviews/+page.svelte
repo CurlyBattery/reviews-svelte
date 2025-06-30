@@ -15,6 +15,8 @@
             props: {
                 reviews: data.gameData
             },
+            cookie: data?.cookieValue,
+            user: data?.user,
         },
         {
             label: 'Фильмы',
@@ -23,6 +25,8 @@
             props: {
                 reviews: data.movieData
             },
+            cookie: data?.cookieValue,
+            user: data?.user,
         },
         {
             label: 'Книги',
@@ -31,6 +35,8 @@
             props: {
                 reviews: data.bookData
             },
+            cookie: data?.cookieValue,
+            user: data?.user,
         }
     ]
 </script>

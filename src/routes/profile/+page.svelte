@@ -38,8 +38,6 @@
       } catch (err) {
           console.error('Error deleting avatar:', err);
       }
-
-
   }
   function handleUploadImage(e: Event) {
       const image =(e.target as HTMLInputElement).files?.[0];

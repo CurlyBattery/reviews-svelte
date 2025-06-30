@@ -42,11 +42,22 @@ export const load = async ({cookies, locals}) => {
     const resBook = await responseBookReviews.json();
     bookReviews = resBook;
 
+    const authenticateUser = await fetch(`http://localhost:3000/api/authentication`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            Cookie: `Authentication=${jwt}`
+        },
+    });
+    let user = await authenticateUser.json();
+
     return {
         gameData: gameReviews,
         movieData: movieReviews,
         bookData: bookReviews,
         cookieValue: jwt,
+        user,
     }
 }
 

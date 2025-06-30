@@ -1,7 +1,13 @@
 <script lang="ts">
-    let {reviews = $bindable()} = $props();
+    let {reviews = $bindable(), cookie=$bindable(), user=$bindable()} = $props();
+    let currentUserId = user?.id;
 
     import avatar from '$lib/assets/avatar.jpg';
+    import like from '$lib/assets/like.png';
+    import dislike from '$lib/assets/dislike.png';
+
+    let isLiked = false;
+    let isDisliked = false;
 
     function handleImage(review) {
         let serverAvatar: string | undefined  = $state(`http://localhost:3000/api/files/${review.userAndReviews[0].user.avatarId}`);
@@ -21,6 +27,51 @@
             return category;
         }
     }
+
+    async function formLikeHandler(event: Event, reviewId: number) {
+        event.preventDefault();
+        try {
+            isLiked = !isLiked;
+
+
+            const jwt = cookie ?? '';
+
+            const response = await fetch(`http://localhost:3000/api/reviews/${reviewId}/like?isActive=${isLiked}`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                    Cookie: `Authentication=${jwt}`
+                },
+            });
+
+            if (!response) throw new Error('Failed to delete avatar');
+            const res = await response.json();
+        } catch (err) {
+            console.error('Error deleting avatar:', err);
+        }
+    }
+    async function formDislikeHandler(event: Event, reviewId: number) {
+        event.preventDefault();
+        try {
+            isDisliked = !isDisliked;
+            const jwt = cookie ?? '';
+
+            const response = await fetch(`http://localhost:3000/api/reviews/${reviewId}/dislike?isActive=${isDisliked}`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                    Cookie: `Authentication=${jwt}`
+                },
+            });
+
+            if (!response) throw new Error('Failed to delete avatar');
+            const res = await response.json();
+        } catch (err) {
+            console.error('Error deleting avatar:', err);
+        }
+    }
 </script>
 
 <div class="main-container">
@@ -38,6 +89,16 @@
                         <img alt="Avatar" src={handleImage(review)} />
                         <div class="user-info">
                             <h5>{review.userAndReviews[0].user.username}</h5>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="icons">
+                            <span class="like" id="likeCount" >{review._count.likes}</span>
+                            <img src={like} alt="Like" id="likeBtn" onclick={(event) => {formLikeHandler(event, review.id)}}>
+                        </div>
+                        <div class="icons">
+                            <img src={dislike} alt="Dislike" id="dislikeBtn" onclick={(event) => {formDislikeHandler(event, review.id)}}>
+                            <span class="dislike" id="dislikeCount" >{review._count.dislikes}</span>
                         </div>
                     </div>
                 </div>
@@ -75,7 +136,6 @@
         box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
         overflow: hidden;
         width: 300px;
-        height: auto;
     }
     .card-header img {
         width: 100%;
@@ -89,6 +149,9 @@
         align-items: flex-start;
         padding: 20px;
         min-height: auto;
+    }
+    .card-body p {
+        min-height: 50px;
     }
     .tag {
         background: #cccccc;
@@ -111,6 +174,7 @@
     .user {
         display: flex;
         margin-top: auto;
+        margin-bottom: 15px;
     }
     .user img {
         border-radius: 50%;
@@ -126,5 +190,49 @@
     }
     .user-info h5{
         margin: 0;
+    }
+
+    .box {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+    .box .icons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 8px;
+        padding: 0 8px;
+        cursor: pointer;
+        border: 2px solid #2e4d64;
+        border-radius: 50px;
+        transition: 0.2s ease;
+    }
+    .box .icons:hover {
+        background: rgba(80, 105, 130, 0.5);
+    }
+
+    .icons .like {
+        width: 35px;
+        border-right: 2px solid #2e4d64;
+        padding: 0 10px 0 8px;
+        pointer-events: none;
+    }
+    .icons .dislike {
+        width: 35px;
+        border-left: 2px solid #2e4d64;
+        padding: 0 8px 0 10px;
+        pointer-events: none;
+    }
+    .box .icons img {
+        width: 20px;
+        box-sizing: content-box;
+        padding: 10px;
+        transition: 0.2s ease;
+        color: #fff;
+        transform: scale(1);
+    }
+    .box .icons img:active {
+        transform: scale(1.3);
     }
 </style>

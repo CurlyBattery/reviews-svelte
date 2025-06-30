@@ -1,19 +1,10 @@
 <script lang="ts">
     import {enhance} from '$app/forms';
-    import {Button, Snackbar} from "svelte-mui";
     import logo from "$lib/assets/favicon.png";
 
     let email = $state('');
 
     let {form} = $props();
-
-    let message = $derived(form?.success
-        ? 'A letter has been sent to you'
-        : 'Error sending');
-    let visible = $derived(form?.success);
-    let color = $derived(form?.success
-        ? '#07a807'
-        : '#f11212')
 
 </script>
 
@@ -32,13 +23,6 @@
         </form>
     </div>
 </div>
-
-<Snackbar bind:visible bg={color}>
-    {message}
-    <span slot="action">
-        <Button color="#fff" on:click={() => (visible = false)}>Close</Button>
-    </span>
-</Snackbar>
 
 <style>
     .main-container {

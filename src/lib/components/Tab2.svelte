@@ -90,6 +90,9 @@
         padding: 20px;
         min-height: auto;
     }
+    .card-body p {
+        min-height: 50px;
+    }
     .tag {
         background: #cccccc;
         border-radius: 50px;

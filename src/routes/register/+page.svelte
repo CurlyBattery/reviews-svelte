@@ -9,7 +9,7 @@
 
 
     const addToast = () =>  {
-        toast.success('Avatar changed');
+        toast.success('Registration successful');
     };
 </script>
 <Toaster />
